@@ -20,6 +20,17 @@ RUN     export DEBIAN_FRONTEND=noninteractive \
     &&  apt-get clean     \
     &&  apt-get update 
 
+ENV DEBIAN_FRONTEND=noninteractive
+RUN apt-get -y install gnupg2 wget postgresql postgresql-contrib build-essential python-dev protobuf-compiler \
+    libprotobuf-dev libtokyocabinet-dev python-psycopg2 libgeos-c1v5 python-pip postgis
+
+RUN pip install imposm
+
+RUN apt-get -y install unzip
+
+RUN wget -O master.zip https://github.com/mapbox/osm-bright/zipball/master \
+      && unzip master.zip
+
 COPY run_tilemill.sh /opt/tilemill/run_tilemill.sh
 
 EXPOSE 20008
@@ -28,5 +39,6 @@ EXPOSE 20009
 VOLUME /root/Documents
 
 WORKDIR /opt/tilemill
+
 
 CMD [ "/bin/bash", "/opt/tilemill/run_tilemill.sh" ]
