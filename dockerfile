@@ -40,5 +40,19 @@ VOLUME /root/Documents
 
 WORKDIR /opt/tilemill
 
+COPY pg_hba.conf /etc/postgresql/10/main/pg_hba.conf
+RUN chown postgres:postgres /etc/postgresql/10/main/pg_hba.conf && chmod 644 /etc/postgresql/10/main/pg_hba.conf
+RUN /etc/init.d/postgresql restart
 
-CMD [ "/bin/bash", "/opt/tilemill/run_tilemill.sh" ]
+RUN wget -O polygonscomplete.zip https://osmdata.openstreetmap.de/download/simplified-land-polygons-complete-3857.zip && unzip polygonscomplete.zip
+RUN wget -O polyongssplit.zip https://osmdata.openstreetmap.de/download/land-polygons-split-3857.zip && unzip polyongssplit.zip
+RUN wget -O populated.zip https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_populated_places.zip && unzip populated.zip
+
+COPY importdatabase.sh /opt/tilemill/importdatabase.sh
+RUN chmod u+x /opt/tilemill/importdatabase.sh
+
+
+
+#RUN psql -U postgres -c "create database osm;"
+
+# CMD [ "/bin/bash", "/opt/tilemill/run_tilemill.sh" ]
