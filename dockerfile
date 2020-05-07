@@ -60,6 +60,6 @@ COPY osm-bright.imposm.mml /mapbox-osm-bright/osm-bright/osm-bright.imposm.mml
 WORKDIR /mapbox-osm-bright/
 RUN ./make.py
 
-#RUN psql -U postgres -c "create database osm;"
+RUN chmod u+x /opt/tilemill/run_tilemill.sh
 
 # CMD [ "/bin/bash", "/opt/tilemill/run_tilemill.sh" ]
