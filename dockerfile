@@ -51,7 +51,14 @@ RUN wget -O populated.zip https://www.naturalearthdata.com/http//www.naturaleart
 COPY importdatabase.sh /opt/tilemill/importdatabase.sh
 RUN chmod u+x /opt/tilemill/importdatabase.sh
 
-
+RUN mkdir -p /MapBox/project
+RUN mv /mapbox-osm-bright-* /mapbox-osm-bright
+COPY configure.py /mapbox-osm-bright/configure.py
+COPY osm-bright.imposm.mml /mapbox-osm-bright/osm-bright/osm-bright.imposm.mml
+#WORKDIR /opt/tilemill/tilemill
+#RUn ./index.js
+WORKDIR /mapbox-osm-bright/
+RUN ./make.py
 
 #RUN psql -U postgres -c "create database osm;"
 
