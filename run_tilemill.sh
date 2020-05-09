@@ -1,5 +1,6 @@
 #!/bin/bash
 
+service postgresql start
 
 # Set the locale - see http://jaredmarkell.com/docker-and-locales/
 # a work around for this error when running tilemill:

@@ -14,7 +14,7 @@ config["name"] = "OSM Bright"
 
 # The absolute path to your MapBox projects directory. You should 
 # not need to change this unless you have configured TileMill specially
-config["path"] = path.expanduser("/MapBox/project")
+config["path"] = path.expanduser("~/Documents/MapBox/project")
 
 # PostGIS connection setup
 # Leave empty for Mapnik defaults. The only required parameter is dbname.
